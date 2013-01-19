@@ -1,4 +1,5 @@
 " Tab management utility
+" a
 " Maintainer: INAJIMA Daisuke <inajima@sopht.jp>
 " Version: 0.1
 " License: MIT License
@@ -204,7 +205,7 @@ function! tabutil#reorganize()
 	let tabnr += 1
     endwhile
 
-    tablast
+    silent! tablast
 
     for bufnr in range(1, bufnr('$'))
 	if !has_key(bufs, bufnr) && buflisted(bufnr)
