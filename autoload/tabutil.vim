@@ -1,5 +1,4 @@
 " Tab management utility
-" a
 " Maintainer: INAJIMA Daisuke <inajima@sopht.jp>
 " Version: 0.1
 " License: MIT License
@@ -154,8 +153,16 @@ endfunction
 
 " Move a tab.
 function! tabutil#move(count)
-    let pos = (tabpagenr() + a:count - 1 + tabpagenr('$')) % tabpagenr('$')
-    execute 'tabmove' pos
+    if has('patch-7.3.591')
+        if a:count =~# '^[-+]'
+            execute 'tabmove' a:count
+        else
+            execute 'tabmove' '+' . a:count
+        endif
+    else
+        let pos = (tabpagenr() + a:count - 1 + tabpagenr('$')) % tabpagenr('$')
+        execute 'tabmove' pos
+    endif
 endfuncti
 
 " Open a buffer in new tab or jump to the buffer in another tab.
